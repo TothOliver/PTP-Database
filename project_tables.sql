@@ -53,13 +53,15 @@ FOREIGN KEY (card_id) REFERENCES card(card_id),
 FOREIGN KEY (player_id) REFERENCES player(player_id)
 );
 
-INSERT INTO enemy (enemy_type,enemy_color,enemy_difficulty) VALUES
-("Pawn","White","easy"),
-("Pawn","Black","easy"),
-("Bishop","White","medium"),
-("Bishop","Black","medium"),
-("Rook","White","hard"),
-("Rook","Black","hard");
+
+
+REPLACE INTO enemy (enemy_id,enemy_type,enemy_color,enemy_difficulty) VALUES
+(1,"Pawn","White","easy"),
+(2,"Pawn","Black","easy"),
+(3,"Bishop","White","medium"),
+(4,"Bishop","Black","medium"),
+(5,"Rook","White","hard"),
+(6,"Rook","Black","hard");
 
 INSERT INTO rounds (nr_of_enemies) VALUES
 (6),
@@ -225,7 +227,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 5, 0.02, 0.16, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 5, 0.17, 0.11, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 5, 0.09, 0.1, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 5, 0, 0.1, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 5, 0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 5, 0.2, 0.13, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 5, 0.12, 0.11, 0);
 
@@ -236,7 +238,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 6, 0.15, 0.07, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 6, 0.17, 0.22, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 6, 0.13, 0.22, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 6, 0.0, 0.05, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 6, 0.0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 6, 0.14, 0.08, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 6, 0.13, 0.06, 0);
 
@@ -247,7 +249,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 7, 0.08, 0.05, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 7, 0.07, 0.14, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 7, 0.03, 0.13, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 7, 0.0, 0.08, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 7, 0.0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 7, 0.21, 0.02, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 7, 0.11, 0.05, 0);
 
@@ -258,7 +260,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 8, 0.08, 0.04, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 8, 0.13, 0.19, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 8, 0.17, 0.08, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 8, 0.0, 0.05, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 8, 0.0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 8, 0.1, 0.06, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 8, 0.09, 0.02, 0.0);
 
@@ -269,7 +271,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 9, 0.17, 0.14, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 9, 0.12, 0.1, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 9, 0.16, 0.07, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 9, 0, 0.07, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 9, 0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 9, 0.2, 0.13, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 9, 0.08, 0.17, 0);
 
@@ -280,7 +282,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 10, 0.11, 0.09, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 10, 0.12, 0.13, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 10, 0.12, 0.1, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 10, 0.0, 0.03, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 10, 0.0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 10, 0.17, 0.03, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 10, 0.02, 0.17, 0.0);
 
@@ -291,7 +293,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 11, 0.16, 0.04, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 11, 0.05, 0.07, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 11, 0.17, 0.17, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 11, 0, 0.11, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 11, 0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 11, 0.27, 0.11, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 11, 0.02, 0.05, 0);
 
@@ -302,7 +304,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 12, 0.01, 0.15, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 12, 0.03, 0.1, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 12, 0.09, 0.07, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 12, 0, 0.08, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 12, 0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 12, 0.36, 0.14, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 12, 0.09, 0.09, 0);
 
@@ -313,7 +315,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 13, 0.13, 0.02, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 13, 0.07, 0.04, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 13, 0.22, 0.17, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 13, 0., 0.08, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 13, 0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 13, 0.04, 0.11, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 13, 0.07, 0.02, 0);
 
@@ -324,7 +326,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 14, 0.1, 0.19, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 14, 0.1, 0.12, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 14, 0.1, 0.06, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 14, 0, 0.07, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 14, 0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 14, 0.25, 0.08, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 14, 0.03, 0.06, 0);
 
@@ -346,7 +348,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 16, 0.16, 0.05, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 16, 0.08, 0.05, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 16, 0.02, 0.22, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 16, 0, 0.14, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 16, 0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 16, 0.05, 0.03, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 16, 0.13, 0.23, 0);
 
@@ -379,7 +381,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 19, 0.17, 0.16, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 19, 0.02, 0.11, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 19, 0.06, 0.05, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 19, 0, 0.13, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 19, 0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 19, 0.28, 0.04, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 19, 0.16, 0.1, 0);
 
@@ -390,7 +392,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 20, 0.19, 0.1, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 20, 0.04, 0.14, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 20, 0.14, 0.07, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 20, 0, 0.17, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 20, 0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 20, 0.3, 0.1, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 20, 0.04, 0.04, 0);
 
@@ -404,7 +406,3 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 21, 0.15, 0.27, 1.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 21, 0.08, 0.08, 0.58);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 21, 0.17, 0.1, 0.98);
-
-
-
-SELECT *FROM spawnrate WHERE spawnrate.spawnrate > 0;
