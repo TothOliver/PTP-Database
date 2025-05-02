@@ -1,3 +1,10 @@
+
+
+CREATE TABLE rounds (
+round_number INT PRIMARY KEY AUTO_INCREMENT,
+nr_of_enemies INT NOT NULL
+);
+
 CREATE TABLE player (
 player_id INT PRIMARY KEY AUTO_INCREMENT,
 player_name VARCHAR(45) NOT NULL,
@@ -8,13 +15,6 @@ round_number INT,
 FOREIGN KEY (round_number) REFERENCES rounds(round_number)
 );
 
-CREATE TABLE rounds (
-round_number INT PRIMARY KEY AUTO_INCREMENT,
-nr_of_enemies INT NOT NULL
-);
-
-
-
 CREATE TABLE enemy (
 enemy_id INT PRIMARY KEY AUTO_INCREMENT,
 enemy_type VARCHAR(45) NOT NULL,
@@ -24,11 +24,11 @@ enemy_difficulty VARCHAR(45) NOT NULL
 
 CREATE TABLE spawnrate (
     round_number INT,
-    enemy_id VARCHAR(45),
+    enemy_id INT,
     spawnrate DECIMAL(3,3),  
 
     PRIMARY KEY (round_number, enemy_id),  -- composite primary key
-    FOREIGN KEY (round_number) REFERENCES rounds(round_nunmber),
+    FOREIGN KEY (round_number) REFERENCES rounds(round_number),
     FOREIGN KEY (enemy_id) REFERENCES enemy(enemy_id)
 );
 
@@ -54,12 +54,24 @@ FOREIGN KEY (player_id) REFERENCES player(player_id)
 );
 
 INSERT INTO enemy (enemy_type,enemy_color,enemy_difficulty) VALUES
-("Pawn","W","easy"),
-("Pawn","B","easy"),
-("Bishop","W","medium"),
-("Bishop","B","medium"),
-("Rook","W","hard"),
-("Rook","B","hard");
+("Pawn","White","easy"),
+("Pawn","Black","easy"),
+("Bishop","White","medium"),
+("Bishop","Black","medium"),
+("Rook","White","hard"),
+("Rook","Black","hard");
+
+INSERT INTO rounds (nr_of_enemies) VALUES
+(6),
+(9),
+(12),
+(14),
+(18),
+(21),
+(23),
+(25),
+(27),
+(30);
 
 INSERT INTO spawnrate(enemy_id,round_number,spawnrate) VALUES
 (1,1,0.5),
@@ -123,17 +135,7 @@ INSERT INTO spawnrate(enemy_id,round_number,spawnrate) VALUES
 (5,10,0.2),
 (6,10,0.2);
 
-INSERT INTO rounds (nr_of_enemies) VALUES
-(6),
-(9),
-(12),
-(14),
-(18),
-(21),
-(23),
-(25),
-(27),
-(30);
+
 
 INSERT INTO card (card_name,pick_rate, upgrade_rate, win_rate) VALUES 
 ("Ring of fire",	0.09,	0.11,	0.03),
@@ -148,7 +150,7 @@ INSERT INTO card (card_name,pick_rate, upgrade_rate, win_rate) VALUES
 ("Haste",			0.1	,	0.09,	0.06);
 
 
-INSERT INTO player (player_name,avg_round,play_time) VALUES
+INSERT INTO player (player_name,avg_round,play_time,round_number) VALUES
 ("Alpacca",		5.1,	"00:10:30",10),
 ("Björn",		7.2,	"03:20:56",10),
 ("Chinchilla",	9.0,	"00:40:21",10),
@@ -212,7 +214,7 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (5, 4, 0.18, 0.05, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (6, 4, 0.06, 0.13, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (7, 4, 0.07, 0.09, 0);
-INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 4, 0.0, 0.1, 0.0);
+INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (8, 4, 0.0, 0, 0.0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (9, 4, 0.27, 0.06, 0);
 INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate) VALUES (10, 4, 0.09, 0.13, 0);
 
@@ -405,3 +407,4 @@ INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_r
 
 
 
+SELECT *FROM spawnrate WHERE spawnrate.spawnrate > 0;
