@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import scrolledtext
 import mysql.connector
 
-def run_query(query_num):
+def run_query(query_num, card_name=None):
     try:
         conn = mysql.connector.connect(
             host="localhost",
@@ -12,46 +12,27 @@ def run_query(query_num):
         )
         cursor = conn.cursor()
         if query_num == 1:
-            cursor.execute("""
-                SELECT p.player_id, p.player_name
-                FROM player p
-                JOIN player_card_rate u ON p.player_id = u.player_id
-                JOIN card c ON u.card_id = c.card_id
-                WHERE c.card_name = 'Ring of fire'
-                AND u.pick_rate > c.pick_rate
-                AND u.win_rate > c.win_rate;""")
+            cursor.execute("SELECT * FROM player;")
         elif query_num == 2:
-             cursor.execute("""
-                SELECT r.round_number,
-                ROUND(SUM(s.spawnrate * 
-                    CASE e.enemy_difficulty
-                        WHEN 'easy' THEN 1
-                        WHEN 'medium' THEN 2
-                        WHEN 'hard' THEN 3
-                    END
-                ) / SUM(s.spawnrate), 2) AS average_difficulty_numeric,
-                CASE 
-                    WHEN ROUND(SUM(s.spawnrate * 
-                        CASE e.enemy_difficulty
-                            WHEN 'easy' THEN 1
-                            WHEN 'medium' THEN 2
-                            WHEN 'hard' THEN 3
-                        END
-                    ) / SUM(s.spawnrate)) = 1 THEN 'easy'
-                    WHEN ROUND(SUM(s.spawnrate * 
-                        CASE e.enemy_difficulty
-                            WHEN 'easy' THEN 1
-                            WHEN 'medium' THEN 2
-                            WHEN 'hard' THEN 3
-                        END
-                    ) / SUM(s.spawnrate)) = 2 THEN 'medium'
-                    ELSE 'hard'
-                END AS average_difficulty_label
-            FROM spawnrate s
-            JOIN enemy e ON s.enemy_id = e.enemy_id
-            JOIN rounds r ON s.round_number = r.round_number
-            GROUP BY r.round_number
-            ORDER BY r.round_number;""")
+            cursor.execute("SELECT * FROM card")
+        elif query_num == 3:
+            cursor.execute("SELECT * FROM enemy;")
+        elif query_num == 4:
+           cursor.execute("""
+                SELECT p.player_id, p.player_name, c.card_name, u.pick_rate, u.win_rate
+                FROM player_card_above_average u
+                JOIN card c ON u.card_name = c.card_name
+                JOIN player p ON u.player_id = p.player_id
+                WHERE u.card_name = %s
+                AND u.pick_rate >= (SELECT pick_rate FROM card WHERE card_name = %s)
+                AND u.win_rate >= (SELECT win_rate FROM card WHERE card_name = %s);""", 
+                (card_name, card_name, card_name))
+
+
+        elif query_num == 5:
+            cursor.execute("SELECT * FROM total_number_of_winners;")
+        elif query_num == 6:
+            cursor.execute("SELECT * FROM average_difficulty_per_round;")
 
         results = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
@@ -74,10 +55,25 @@ def run_query(query_num):
 window = tk.Tk()
 window.title("Window")
 
-query_button = tk.Button(window, text="Show Ring of Fire players", command=lambda: run_query(1))
+query_button = tk.Button(window, text="Show all players", command=lambda: run_query(1))
 query_button.pack(pady=10)
 
-query_button2 = tk.Button(window, text="Get average difficutly per Round", command=lambda: run_query(2))
+query_button = tk.Button(window, text="Show all cards", command=lambda: run_query(2))
+query_button.pack(pady=10)
+
+query_button = tk.Button(window, text="Show enemy types", command=lambda: run_query(3))
+query_button.pack(pady=10)
+
+card_entry = tk.Entry(window)
+card_entry.pack(pady=5)
+
+query_button = tk.Button(window, text="Show Players that are good with a card", command=lambda: run_query(4, card_entry.get()))
+query_button.pack(pady=10)
+
+query_button2 = tk.Button(window, text="Total Number of Winners", command=lambda: run_query(5))
+query_button2.pack(pady=10)
+
+query_button2 = tk.Button(window, text="Get average difficutly per Round", command=lambda: run_query(6))
 query_button2.pack(pady=10)
 
 output = scrolledtext.ScrolledText(window, width=80, height=20)
