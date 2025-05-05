@@ -11,7 +11,7 @@ def run_query():
             database="dv1663"
         )
         cursor = conn.cursor()
-        cursor.execute("SELECT * FROM BlackCars WHERE PricePerday > 800;")
+        cursor.execute("SELECT * FROM card")
         results = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
 
