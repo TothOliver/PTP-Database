@@ -23,7 +23,7 @@ def run_query(query_num, card_name=None):
         elif query_num == 4:
             card_name = card_name_entry.get()
             cursor.execute("""
-                 SELECT p.player_id, p.player_name, c.card_name, u.pick_rate, u.win_rate
+                SELECT p.player_id, p.player_name, c.card_name, u.pick_rate, u.win_rate
                 FROM player_card_above_average u
                 JOIN card c ON u.card_name = c.card_name
                 JOIN player p ON u.player_id = p.player_id
@@ -55,8 +55,8 @@ def run_query(query_num, card_name=None):
             win_rate = float(win_rate_entry.get())
 
             cursor.callproc('add_card_rates', (player_id, card_id, pick_rate, upgrade_rate, win_rate))
+            cursor.callproc('update_card')
             conn.commit()
-            #cursor.execute('SELECT update_card();')
 
         results = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
