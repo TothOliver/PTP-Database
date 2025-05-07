@@ -31,6 +31,8 @@ def run_query(query_num, card_name=None):
             cursor.execute("SELECT * FROM total_number_of_winners;")
         elif query_num == 6:
             cursor.execute("SELECT * FROM average_difficulty_per_round;")
+        elif query_num == 7:
+            cursor.callproc('add_new_player', ('Whale', 5, 10, '08:30:00'))
 
         results = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
@@ -72,6 +74,9 @@ query_button2 = tk.Button(window, text="Total Number of Winners", command=lambda
 query_button2.pack(pady=10)
 
 query_button2 = tk.Button(window, text="Get average difficutly per Round", command=lambda: run_query(6))
+query_button2.pack(pady=10)
+
+query_button2 = tk.Button(window, text="Add player", command=lambda: run_query(7))
 query_button2.pack(pady=10)
 
 output = scrolledtext.ScrolledText(window, width=80, height=20)
