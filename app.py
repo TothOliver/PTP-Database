@@ -17,6 +17,9 @@ def run_query(query_num, card_name=None):
             cursor.execute("SELECT * FROM card")
         elif query_num == 3:
             cursor.execute("SELECT * FROM enemy;")
+        elif query_num == 9:
+            player_id = player1_id_entry.get()
+            cursor.execute("""SELECT * FROM player_card_rate WHERE player_id = %s;""", (player_id,))
         elif query_num == 4:
             card_name = card_name_entry.get()
             cursor.execute("""
@@ -53,7 +56,7 @@ def run_query(query_num, card_name=None):
 
             cursor.callproc('add_card_rates', (player_id, card_id, pick_rate, upgrade_rate, win_rate))
             conn.commit()
-            cursor.execute('SELECT update_card();')
+            #cursor.execute('SELECT update_card();')
 
         results = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
@@ -87,6 +90,13 @@ query_button2.grid(row=0, column=1, padx=10, pady=5, ipadx=0, ipady=0, sticky='w
 query_button3 = tk.Button(window, text="Show enemy types", command=lambda: run_query(3))
 query_button3.grid(row=0, column=2, padx=10, pady=5, ipadx=0, ipady=0, sticky='w')
 
+query_button3 = tk.Button(window, text="Show player card rates", command=lambda: run_query(9))
+query_button3.grid(row=1, column=0, padx=10, pady=5, ipadx=0, ipady=0, sticky='w')
+
+player1_id_label = tk.Label(window, text="Player ID:")
+player1_id_label.grid(row=2, column=0, sticky='w', padx=10)
+player1_id_entry = tk.Entry(window)
+player1_id_entry.grid(row=2, column=1, padx=10)
 
 query_button4 = tk.Button(window, text="Show Players good with a card", command=lambda: run_query(4))
 query_button4.grid(row=3, column=0, padx=10, pady=5, sticky='w')
