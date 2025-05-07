@@ -27,8 +27,6 @@ def run_query(query_num, card_name=None):
                 AND u.pick_rate >= (SELECT pick_rate FROM card WHERE card_name = %s)
                 AND u.win_rate >= (SELECT win_rate FROM card WHERE card_name = %s);""", 
                 (card_name, card_name, card_name))
-
-
         elif query_num == 5:
             cursor.execute("SELECT * FROM total_number_of_winners;")
         elif query_num == 6:
