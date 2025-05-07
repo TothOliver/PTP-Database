@@ -26,6 +26,12 @@ BEGIN
 		pick_rate = VALUES(pick_rate),
         upgrade_rate = VALUES(upgrade_rate),
         win_rate = VALUES(win_rate);
+	
+    UPDATE player_card_rate r
+	JOIN player p ON p.player_id = r.player_id
+	SET r.win_rate = 0
+	WHERE p.round_number < 10;
+
 END;
 //
 
