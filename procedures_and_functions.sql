@@ -12,6 +12,8 @@ BEGIN
 END;
 //
 
+DELIMITER //
+DROP PROCEDURE IF EXISTS add_card_rates;
 CREATE PROCEDURE add_card_rates (
 		IN p_player_id INT,
         IN p_card_id INT,
@@ -27,14 +29,17 @@ BEGIN
         upgrade_rate = VALUES(upgrade_rate),
         win_rate = VALUES(win_rate);
 	
-    UPDATE player_card_rate r
-	JOIN player p ON p.player_id = r.player_id
-	SET r.win_rate = 0
-	WHERE p.round_number < 10;
+	SET SQL_SAFE_UPDATES = 0;
+	UPDATE card
+	SET upgrade_rate = get_global_upgrade_rate(card_id),
+	pick_rate = get_global_pick_rate(card_id),
+	win_rate = get_global_win_rate(card_id);
 
+	SET SQL_SAFE_UPDATES = 1;
 END;
 //
 
+DELIMITER //
 DROP FUNCTION IF EXISTS get_global_pick_rate;
 CREATE FUNCTION get_global_pick_rate(p_card_id INT)
 RETURNS DECIMAL(5,4)
@@ -42,7 +47,6 @@ DETERMINISTIC
 BEGIN
 	DECLARE total_picks DECIMAL (10,2) DEFAULT 0;
     DECLARE total_rounds DECIMAL (10,2) DEFAULT 0;
-    
     
 	SELECT
         SUM((TIME_TO_SEC(p.play_time) / 120) * r.pick_rate),
@@ -59,6 +63,21 @@ BEGIN
 	END IF;
 END;
 //
+
+DELIMITER //
+DROP PROCEDURE IF EXISTS update_card;
+CREATE PROCEDURE update_card()
+BEGIN
+	SET SQL_SAFE_UPDATES = 0;
+    UPDATE card
+    SET upgrade_rate = get_global_upgrade_rate(card_id),
+        pick_rate = get_global_pick_rate(card_id),
+        win_rate = get_global_win_rate(card_id);
+	SET SQL_SAFE_UPDATES = 1;
+END;
+//
+
+
 DROP FUNCTION IF EXISTS get_global_upgrade_rate;
 CREATE FUNCTION get_global_upgrade_rate (p_card_id INT)
 RETURNS DECIMAL(5,4)
@@ -118,13 +137,6 @@ UPDATE player_card_rate r
 JOIN player p ON p.player_id = r.player_id
 SET r.win_rate = 0
 WHERE p.round_number < 10;
-
--- Updates the global card upgrade rate
-SET SQL_SAFE_UPDATES = 0;
-UPDATE card
-SET upgrade_rate = get_global_upgrade_rate(card_id),
-	pick_rate = get_global_pick_rate(card_id),
-	win_rate = get_global_win_rate(card_id);
 
 SET SQL_SAFE_UPDATES = 1;
 SELECT card_name,pick_rate, upgrade_rate,win_rate FROM card;
