@@ -4,6 +4,7 @@ This project is a local MySQL database paired with a Python script ('app_gui.py'
 
 The system uses the 'mysql-connector-python' library to handle database connections between the Python program and the MySQL server.
 
+This project uses the library tkinter in python, for window and button creatin for the GUI
 ---
 
 ## Requirements
