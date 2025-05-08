@@ -6,8 +6,8 @@ def run_query(query_num, inputs):
         conn = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="Hugge2003",
-            database="project"
+            password="[password]",
+            database="dv1663"
         )
         cursor = conn.cursor()
         result_text = ""

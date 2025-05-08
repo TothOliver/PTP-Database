@@ -36,9 +36,9 @@ To make sure the program works, you **must** prepare the MySQL database by runni
 
 ### 📦 SQL Files
 
-| File              		| Purpose
-| 'project_tables.sql' 		| Defines the database schema: tables, columns, types, primary/foreign keys
-| 'queries.sql'   		| Inserts queries
+| File              		 | Purpose
+| 'project_tables.sql' 		 | Defines the database schema: tables, columns, types, primary/foreign keys
+| 'queries.sql'   		 | Inserts queries
 | 'procedures_and_functions.sql' | Inserts procedures and functions
 
 
