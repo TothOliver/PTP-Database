@@ -2,9 +2,6 @@
 import mysql.connector
 
 def run_query(query_num, inputs):
-    """
-    inputs: dictionary with needed values, e.g., {'player_id': 1, 'card_name': 'Fireball'}
-    """
     try:
         conn = mysql.connector.connect(
             host="localhost",
