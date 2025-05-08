@@ -25,7 +25,7 @@ def run_query_wrapper(query_num):
     output.insert(tk.END, result)
 
 window = tk.Tk()
-window.title("Window")
+window.title("Database (PTP)")
 
 # Button Section (left column)
 query_button1 = tk.Button(window, text="Show all players", command=lambda: run_query_wrapper(1), borderwidth=1)
@@ -115,7 +115,7 @@ win_rate_entry = tk.Entry(window)
 win_rate_entry.grid(row=17, column=0, padx=200)
 
 # ScrolledText Output (span two columns)
-output = scrolledtext.ScrolledText(window, width=100, height=30)
+output = scrolledtext.ScrolledText(window, width=100, height=20)
 output.grid(row=18, column=0, columnspan=2, padx=10, pady=10)
 
 if __name__ == "__main__":

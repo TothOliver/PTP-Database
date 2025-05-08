@@ -30,11 +30,13 @@ conn = mysql.connector.connect(
     password="[your-password-here]",
     database="dv1663"
 )
+---
 
 ## Database Setup
 
 To make sure the program works, you **must** prepare the MySQL database by running the provided '.sql' files in the correct order.
 
+---
 ### 📦 SQL Files
 
 | File              		 | Purpose
