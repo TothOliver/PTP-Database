@@ -1,5 +1,6 @@
 
 DELIMITER //
+DROP PROCEDURE IF EXISTS add_new_player;
 CREATE PROCEDURE add_new_player (
 	IN p_name VARCHAR(45),
     IN p_avg_round INT,
@@ -77,7 +78,7 @@ BEGIN
 END;
 //
 
-
+DELIMITER //
 DROP FUNCTION IF EXISTS get_global_upgrade_rate;
 CREATE FUNCTION get_global_upgrade_rate (p_card_id INT)
 RETURNS DECIMAL(5,4)
@@ -102,12 +103,10 @@ BEGIN
 	END IF;
 END;
 //
-DELIMITER ;
 
-
-DROP FUNCTION IF EXISTS get_global_win_rate;
 DELIMITER //
 
+DROP FUNCTION IF EXISTS get_global_win_rate;
 CREATE FUNCTION get_global_win_rate(p_card_id INT)
 RETURNS DECIMAL(5,4)
 DETERMINISTIC
@@ -132,11 +131,3 @@ END;
 //
 DELIMITER ;
 
--- set all player - card winrates to zero if the player has never won
-UPDATE player_card_rate r
-JOIN player p ON p.player_id = r.player_id
-SET r.win_rate = 0
-WHERE p.round_number < 10;
-
-SET SQL_SAFE_UPDATES = 1;
-SELECT card_name,pick_rate, upgrade_rate,win_rate FROM card;
