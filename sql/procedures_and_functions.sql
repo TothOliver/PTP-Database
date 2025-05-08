@@ -131,3 +131,4 @@ END;
 //
 DELIMITER ;
 
+SELECT card_id,player_id,win_rate,pick_rate FROM player_card_rate u JOIN card c where u.card_id = c.card_id and u.pick_rate > c.pick_rate and u.win_rate > c.win_rate;
