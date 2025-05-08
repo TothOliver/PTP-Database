@@ -6,8 +6,8 @@ def run_query(query_num, inputs):
         conn = mysql.connector.connect(
             host="localhost",
             user="root",
-            password="[password]",
-            database="dv1663"
+            password="Hugge2003",
+            database="project"
         )
         cursor = conn.cursor()
         result_text = ""
@@ -62,10 +62,17 @@ def run_query(query_num, inputs):
         results = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
 
-        result_text += " | ".join(columns) + "\n"
-        result_text += "-" * 40 + "\n"
+        col_widths = [max(len(str(col)), max(len(str(row[i])) for row in results)) for i, col in enumerate(columns)]
+
+        # Format header
+        header = " | ".join(f"{col:<{col_widths[i]}}" for i, col in enumerate(columns))
+        separator = "-+-".join("-" * col_widths[i] for i in range(len(columns)))
+        result_text += header + "\n" + separator + "\n"
+
+        # Format each row
         for row in results:
-            result_text += " | ".join(str(item) for item in row) + "\n"
+            row_text = " | ".join(f"{str(val):<{col_widths[i]}}" for i, val in enumerate(row))
+            result_text += row_text + "\n"
 
         return result_text
 
