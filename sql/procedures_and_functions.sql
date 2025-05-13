@@ -1,6 +1,6 @@
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS add_new_player;
+
 CREATE PROCEDURE add_new_player (
 	IN p_name VARCHAR(45),
     IN p_avg_round INT,
@@ -12,36 +12,12 @@ BEGIN
     VALUES (p_name,p_avg_round,p_playtime,p_highscore);
 END;
 //
+DELIMITER ;
+
+
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS add_card_rates;
-CREATE PROCEDURE add_card_rates (
-		IN p_player_id INT,
-        IN p_card_id INT,
-        IN p_pick_rate DECIMAL(3,2),
-        IN p_upgrade_rate DECIMAL (3,2),
-        IN p_win_rate DECIMAL (3,2)
-)
-BEGIN
-	INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate)
-    VALUES (p_card_id, p_player_id, p_pick_rate, p_upgrade_rate, p_win_rate)
-    ON DUPLICATE KEY UPDATE
-		pick_rate = VALUES(pick_rate),
-        upgrade_rate = VALUES(upgrade_rate),
-        win_rate = VALUES(win_rate);
-	
-	SET SQL_SAFE_UPDATES = 0;
-	UPDATE card
-	SET upgrade_rate = get_global_upgrade_rate(card_id),
-	pick_rate = get_global_pick_rate(card_id),
-	win_rate = get_global_win_rate(card_id);
 
-	SET SQL_SAFE_UPDATES = 1;
-END;
-//
-
-DELIMITER //
-DROP FUNCTION IF EXISTS get_global_pick_rate;
 CREATE FUNCTION get_global_pick_rate(p_card_id INT)
 RETURNS DECIMAL(5,4)
 DETERMINISTIC
@@ -64,22 +40,12 @@ BEGIN
 	END IF;
 END;
 //
+DELIMITER ;
+
+
 
 DELIMITER //
-DROP PROCEDURE IF EXISTS update_card;
-CREATE PROCEDURE update_card()
-BEGIN
-	SET SQL_SAFE_UPDATES = 0;
-    UPDATE card
-    SET upgrade_rate = get_global_upgrade_rate(card_id),
-        pick_rate = get_global_pick_rate(card_id),
-        win_rate = get_global_win_rate(card_id);
-	SET SQL_SAFE_UPDATES = 1;
-END;
-//
 
-DELIMITER //
-DROP FUNCTION IF EXISTS get_global_upgrade_rate;
 CREATE FUNCTION get_global_upgrade_rate (p_card_id INT)
 RETURNS DECIMAL(5,4)
 DETERMINISTIC
@@ -103,10 +69,10 @@ BEGIN
 	END IF;
 END;
 //
+DELIMITER ;
 
 DELIMITER //
 
-DROP FUNCTION IF EXISTS get_global_win_rate;
 CREATE FUNCTION get_global_win_rate(p_card_id INT)
 RETURNS DECIMAL(5,4)
 DETERMINISTIC
@@ -131,4 +97,44 @@ END;
 //
 DELIMITER ;
 
-SELECT card_id,player_id,win_rate,pick_rate FROM player_card_rate u JOIN card c where u.card_id = c.card_id and u.pick_rate > c.pick_rate and u.win_rate > c.win_rate;
+DELIMITER //
+
+CREATE PROCEDURE add_card_rates (
+		IN p_player_id INT,
+        IN p_card_id INT,
+        IN p_pick_rate DECIMAL(3,2),
+        IN p_upgrade_rate DECIMAL (3,2),
+        IN p_win_rate DECIMAL (3,2)
+)
+BEGIN
+	INSERT INTO player_card_rate (card_id, player_id, pick_rate, upgrade_rate, win_rate)
+    VALUES (p_card_id, p_player_id, p_pick_rate, p_upgrade_rate, p_win_rate)
+    ON DUPLICATE KEY UPDATE
+		pick_rate = VALUES(pick_rate),
+        upgrade_rate = VALUES(upgrade_rate),
+        win_rate = VALUES(win_rate);
+	
+	SET SQL_SAFE_UPDATES = 0;
+	UPDATE card
+	SET upgrade_rate = get_global_upgrade_rate(card_id),
+	pick_rate = get_global_pick_rate(card_id),
+	win_rate = get_global_win_rate(card_id);
+
+	SET SQL_SAFE_UPDATES = 1;
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+
+CREATE PROCEDURE update_card()
+BEGIN
+	SET SQL_SAFE_UPDATES = 0;
+    UPDATE card
+    SET upgrade_rate = get_global_upgrade_rate(card_id),
+        pick_rate = get_global_pick_rate(card_id),
+        win_rate = get_global_win_rate(card_id);
+	SET SQL_SAFE_UPDATES = 1;
+END;
+//
+DELIMITER ;
