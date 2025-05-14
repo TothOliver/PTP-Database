@@ -36,7 +36,7 @@ CREATE TABLE card (
 card_id INT PRIMARY KEY AUTO_INCREMENT,
 card_name VARCHAR(45),
 pick_rate DECIMAL(3,2),
-upgrade_rate DECIMAL(3.2),
+upgrade_rate DECIMAL(3,2),
 win_rate DECIMAL(3,2)
 );
 
