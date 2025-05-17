@@ -28,7 +28,7 @@ def run_query(query_num, inputs):
                 WHERE u.card_name = %s
                 AND u.pick_rate >= (SELECT pick_rate FROM card WHERE card_name = %s)
                 AND u.win_rate >= (SELECT win_rate FROM card WHERE card_name = %s);
-            """, (card_name, card_name, card_name))
+            """, (card_name, card_name, card_name))            
         elif query_num == 5:
             cursor.execute("SELECT * FROM total_number_of_winners;")
         elif query_num == 6:
@@ -61,6 +61,9 @@ def run_query(query_num, inputs):
         # Process and format results
         results = cursor.fetchall()
         columns = [desc[0] for desc in cursor.description]
+
+        if not results:
+            return "No player found."
 
         col_widths = [max(len(str(col)), max(len(str(row[i])) for row in results)) for i, col in enumerate(columns)]
 
